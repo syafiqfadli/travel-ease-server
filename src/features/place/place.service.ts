@@ -12,6 +12,24 @@ export class PlaceService {
     private readonly placeModel: Model<PlaceDocument>,
   ) {}
 
+  async getGooglePlace(placeQuery: string): Promise<Response> {
+    if (!placeQuery) {
+      return Response.errorResponse('Please enter place.');
+    }
+
+    try {
+      const response = await fetch(
+        `https://maps.googleapis.com/maps/api/place/textsearch/json?key=${process.env.GOOGLE_API_KEY}&query=${placeQuery}`,
+      ).then((data) => {
+        return data.json();
+      });
+
+      return Response.dataResponse(response);
+    } catch (error) {
+      return Response.errorResponse(error.toString());
+    }
+  }
+
   async getPlaceList(): Promise<Response> {
     const places = await this.placeModel.find();
 

@@ -7,6 +7,11 @@ import { PriceDto } from './dto/price.dto';
 export class PlaceController {
   constructor(private readonly placeService: PlaceService) {}
 
+  @Get('google')
+  async getGooglePlace(@Query('query') placeQuery: string) {
+    return await this.placeService.getGooglePlace(placeQuery);
+  }
+
   @Get('list')
   async getPlaceList() {
     return await this.placeService.getPlaceList();
@@ -29,6 +34,6 @@ export class PlaceController {
 
   @Delete('delete')
   async deletePlace(@Body() body: any) {
-    return await this.placeService.deletePlace(body)
+    return await this.placeService.deletePlace(body);
   }
 }
