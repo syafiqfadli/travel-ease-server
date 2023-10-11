@@ -1,7 +1,6 @@
 import { Controller, Post, Body, Get, Query, Delete } from '@nestjs/common';
 import { PlaceService } from './place.service';
 import { PlaceDto } from './dto/place.dto';
-import { PriceDto } from './dto/price.dto';
 
 @Controller('place')
 export class PlaceController {

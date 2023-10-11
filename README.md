@@ -1,39 +1,73 @@
-# Thrift Shop Server README
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
+</p>
 
-## Overview
+[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
+[circleci-url]: https://circleci.com/gh/nestjs/nest
 
-This README provides a description of the Thrift Shop Server, a backend system that supports various functionalities for a thrift shop application. The server facilitates user registration, authentication, shopping cart management, and more, enabling seamless interactions between the thrift shop's clients and the inventory.
+  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
+    <p align="center">
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
+<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
+<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
+<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
+<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
+<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
+<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
+  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
+    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
+  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
+</p>
+  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
+  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
-## How the Server Works
+## Description
 
-### Installation
+[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-To set up the Thrift Shop Server, follow these steps:
+## Installation
 
-1. Clone the repository from GitHub.
-2. Install the required dependencies using `npm install`.
-3. Run the server with `npm run start:dev` for development.
+```bash
+$ npm install
+```
 
-### Sign Up
+## Running the app
 
-New users can create accounts to access the thrift shop's services. To sign up, the client sends a `POST` request to the server's `/signup` endpoint, including the user's information such as username, email, and password. The server then validates the data, creates a new user entry in the database, and responds with a success message or an error if the registration fails.
+```bash
+# development
+$ npm run start
 
-### Log In
+# watch mode
+$ npm run start:dev
 
-Users can log in to the application by sending a `POST` request to the `/login` endpoint with their credentials. The server verifies the username and password, generates a JSON Web Token (JWT) if the credentials are correct, and sends it back to the client. The client can store this token and use it for subsequent authenticated requests.
+# production mode
+$ npm run start:prod
+```
 
-### Token Authentication
+## Test
 
-For secure interactions, the server uses token-based authentication. Clients must include the JWT in the `Authorization` header of each request to protected endpoints. The server then verifies the token's authenticity, allowing access to specific resources only for authenticated users.
+```bash
+# unit tests
+$ npm run test
 
-### Add to Cart
+# e2e tests
+$ npm run test:e2e
 
-Once authenticated, users can add items to their shopping cart. The client sends a `POST` request to the `/cart/add` endpoint, including the item ID and quantity to add. The server validates the input, checks item availability, and updates the user's cart in the database. If successful, it responds with the updated cart information.
+# test coverage
+$ npm run test:cov
+```
 
-### Error Handling
+## Support
 
-The server includes comprehensive error handling. In case of any unexpected issues or incorrect input from the client, the server responds with appropriate error codes and error messages to help diagnose and resolve the problem.
+Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Conclusion
+## Stay in touch
 
-The Thrift Shop Server is a powerful backend system that supports essential functionalities for a thrift shop application. By enabling user registration, authentication, shopping cart management, and more, it provides a seamless and secure shopping experience for users. With proper setup and integration, the Thrift Shop Server can be the backbone of a fully functional thrift shop application.
+- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
+- Website - [https://nestjs.com](https://nestjs.com/)
+- Twitter - [@nestframework](https://twitter.com/nestframework)
+
+## License
+
+Nest is [MIT licensed](LICENSE).
