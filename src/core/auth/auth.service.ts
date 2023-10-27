@@ -1,10 +1,10 @@
 import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { InjectModel } from '@nestjs/mongoose';
+import * as bcrypt from 'bcrypt';
+import { Model } from 'mongoose';
 import { Response } from 'src/core/response/response.entity';
 import { UserService } from 'src/features/user/user.service';
-import * as bcrypt from 'bcrypt';
-import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
 import { Auth, AuthDocument } from './auth.schema';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class AuthService {
     @Inject(forwardRef(() => UserService))
     private userService: UserService,
     private jwtService: JwtService,
-  ) {}
+  ) { }
 
   async signUp(body: any): Promise<any> {
     const { email, password, displayName } = body;
@@ -87,6 +87,46 @@ export class AuthService {
       };
 
       return Response.dataResponse(token);
+    } catch (error) {
+      return Response.errorResponse(error.toString());
+    }
+  }
+
+  async resetPassword(body: any): Promise<any> {
+    const { email, password } = body;
+
+    if (!email || !password) {
+      return Response.errorResponse('Required data is null.');
+    }
+
+    try {
+      const isEmailFound = await this.emailFound(email);
+
+      if (!isEmailFound) {
+        return Response.errorResponse(
+          'Email not found. Please check your email or sign up',
+        );
+      }
+
+      const saltOrRounds = 10;
+      const hashedPassword = await bcrypt.hash(password, saltOrRounds);
+
+      await this.authModel.findOneAndUpdate(
+        {
+          email: email,
+        },
+        {
+          $set: {
+            password: hashedPassword,
+          }
+        },
+        {
+          new: true,
+          runValidators: true,
+        },
+      )
+
+      return Response.messageResponse('Password reset sucessfully.');
     } catch (error) {
       return Response.errorResponse(error.toString());
     }

@@ -1,15 +1,24 @@
-import { Controller, Post, Body, Get, Query, Delete } from '@nestjs/common';
-import { PlaceService } from './place.service';
+import { Body, Controller, Delete, Get, Patch, Post, Query } from '@nestjs/common';
 import { PlaceDto } from './dto/place.dto';
-import { PriceDto } from './dto/price.dto';
+import { PlaceService } from './place.service';
 
 @Controller('place')
 export class PlaceController {
-  constructor(private readonly placeService: PlaceService) {}
+  constructor(private readonly placeService: PlaceService) { }
 
-  @Get('google')
-  async getGooglePlace(@Query('query') placeQuery: string) {
-    return await this.placeService.getGooglePlace(placeQuery);
+  @Get('google-text')
+  async getGooglePlaceText(@Query('query') placeQuery: string) {
+    return await this.placeService.getGooglePlaceText(placeQuery);
+  }
+
+  @Get('google-nearby')
+  async getGooglePlaceNearby(@Query('type') type: string, @Query('latitude') latitude: number, @Query('longitude') longitude: number) {
+    return await this.placeService.getGooglePlaceNearby(type, latitude, longitude);
+  }
+
+  @Get('google-details')
+  async getGooglePlaceDetails(@Query('placeId') placeId: string) {
+    return await this.placeService.getGooglePlaceDetails(placeId);
   }
 
   @Get('list')
@@ -27,7 +36,7 @@ export class PlaceController {
     return await this.placeService.createPlace(place);
   }
 
-  @Post('update')
+  @Patch('update')
   async updatePlace(@Body() place: PlaceDto) {
     return await this.placeService.updatePlace(place);
   }
