@@ -20,7 +20,7 @@ export class PlaceService {
 
     try {
       const response = await fetch(
-        `${ApiUrl.googleUrl}/textsearch/json?key=${process.env.GOOGLE_API_KEY}&query=${placeQuery}`,
+        `${ApiUrl.googleBaseUrl}/place/textsearch/json?key=${process.env.GOOGLE_API_KEY}&query=${placeQuery}`,
       ).then((data) => {
         return data.json();
       });
@@ -38,7 +38,7 @@ export class PlaceService {
 
     try {
       const response = await fetch(
-        `${ApiUrl.googleUrl}/nearbysearch/json?key=${process.env.GOOGLE_API_KEY}&radius=10000&&type=${type}&location=${latitude}, ${longitude}`,
+        `${ApiUrl.googleBaseUrl}/place/nearbysearch/json?key=${process.env.GOOGLE_API_KEY}&radius=10000&&type=${type}&location=${latitude}, ${longitude}`,
       ).then((data) => {
         return data.json();
       });
@@ -56,12 +56,30 @@ export class PlaceService {
 
     try {
       const response = await fetch(
-        `${ApiUrl.googleUrl}/details/json?key=${process.env.GOOGLE_API_KEY}&place_id=${placeId}`,
+        `${ApiUrl.googleBaseUrl}/place/details/json?key=${process.env.GOOGLE_API_KEY}&place_id=${placeId}`,
       ).then((data) => {
         return data.json();
       });
 
       return Response.dataResponse(response);
+    } catch (error) {
+      return Response.errorResponse(error.toString());
+    }
+  }
+
+  async getGoogleDirection(origin: string, destination: string): Promise<Response> {
+    if (!origin || !destination) {
+      return Response.errorResponse('Required data is null.');
+    }
+
+    try {
+      const response = await fetch(
+        `${ApiUrl.googleBaseUrl}/directions/json?key=${process.env.GOOGLE_API_KEY}&origin=${origin}&destination=${destination}`,
+      ).then((data) => {
+        return data.json();
+      });
+
+      return Response.dataResponse(response['routes'][0]['legs'][0]);
     } catch (error) {
       return Response.errorResponse(error.toString());
     }

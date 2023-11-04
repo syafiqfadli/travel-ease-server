@@ -21,6 +21,11 @@ export class PlaceController {
     return await this.placeService.getGooglePlaceDetails(placeId);
   }
 
+  @Get('google-direction')
+  async getGoogleDirection(@Query('origin') origin: string, @Query('destination') destination: string) {
+    return await this.placeService.getGoogleDirection(origin, destination);
+  }
+
   @Get('list')
   async getPlaceList() {
     return await this.placeService.getPlaceList();
