@@ -20,7 +20,7 @@ export class PlaceService {
 
     try {
       const response = await fetch(
-        `${ApiUrl.googleBaseUrl}/place/textsearch/json?key=${process.env.GOOGLE_API_KEY}&query=${placeQuery}`,
+        `${ApiUrl.googleBaseUrl}/place/textsearch/json?key=${process.env.GOOGLE_API_KEY}&query=${placeQuery + ' melaka'}`,
       ).then((data) => {
         return data.json();
       });
