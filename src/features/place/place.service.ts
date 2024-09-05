@@ -25,6 +25,10 @@ export class PlaceService {
         return data.json();
       });
 
+      if (response['status'] !== 'OK') {
+        return Response.errorResponse(response['error_message']);
+      }
+
       return Response.dataResponse(response);
     } catch (error) {
       return Response.errorResponse(error.toString());
@@ -42,6 +46,10 @@ export class PlaceService {
       ).then((data) => {
         return data.json();
       });
+
+      if (response['status'] !== 'OK') {
+        return Response.errorResponse(response['error_message']);
+      }
 
       return Response.dataResponse(response);
     } catch (error) {
@@ -61,6 +69,10 @@ export class PlaceService {
         return data.json();
       });
 
+      if (response['status'] !== 'OK') {
+        return Response.errorResponse(response['error_message']);
+      }
+
       return Response.dataResponse(response);
     } catch (error) {
       return Response.errorResponse(error.toString());
@@ -78,6 +90,10 @@ export class PlaceService {
       ).then((data) => {
         return data.json();
       });
+
+      if (response['status'] !== 'OK') {
+        return Response.errorResponse(response['error_message']);
+      }
 
       return Response.dataResponse(response['routes'][0]['legs'][0]);
     } catch (error) {
